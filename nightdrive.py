@@ -166,7 +166,7 @@ class Game:
                     self.cid[x + k] = i
             x += w + (1 if r.random() < 0.3 else 0)
             i += 1
-        self.stars = [(r.randrange(W), r.randrange(2, max(3, self.hz - 2))) for _ in range(max(10, C // 3))]
+        self.stars = [(r.randrange(W), r.randrange(2, max(3, self.hz // 3))) for _ in range(max(10, C // 4))]
 
     def reset(self):
         car = CARS[self.car_i]
@@ -741,6 +741,12 @@ class Game:
                 pat = ("▼▾▼", "▾▼▾")[self.frame % 2] if self.nit else ("˅", "ˇ")[self.frame // 2 % 2]
                 for dx in (-3, 3):
                     put(scr, R - 1, C // 2 + sh + dx - len(pat) // 2, pat, fl)
+        elif self.dead:                                        # burning wreck
+            self.sprite(scr, PLAYER, R - 2, C // 2 + sh, "wheel")
+            for k in range(3):
+                fx = C // 2 + sh + self.rng.randint(-4, 4)
+                put(scr, R - 5 - self.rng.randint(0, 2), fx, self.rng.choice("▲▴^*"),
+                    COL["flame" if self.frame % 3 else "spark"])
         for q in self.parts:
             put(scr, int(q[1]), int(q[0]), q[5], COL[q[6]])
 

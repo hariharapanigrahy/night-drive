@@ -2,6 +2,8 @@
 
 An endless neon racer that runs in your terminal. One Python file, no installs.
 
+![NIGHT DRIVE](screenshot.png)
+
 ```bash
 python3 nightdrive.py
 ```
